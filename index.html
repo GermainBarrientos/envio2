@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Servicio web</title>
+
+<script type="text/javascript">
+    var nom=false;
+    var mail=false;
+    var telf=false;
+    var asun=false;
+    var mensaj=false;
+    function validar()
+{
+    if (document.contacto.nombre.value==""){
+        alert("Ingresa tu nombre");
+        document.contacto.nombre.focus();
+        return;
+    }
+    else{
+        vatextNom(document.contacto.nombre.value);
+    }
+
+   if (document.contacto.email.value==""){
+        alert("Ingresa tu dirección de correo electrónico");
+        document.contacto.email.focus();
+        return;
+    }
+    else{
+        validarEmail(document.contacto.email.value);
+    }
+
+    if(document.contacto.Telefono.value==""){
+        alert("Ingresa tu número de teléfono");
+        document.contacto.Telefono.focus();
+        return;
+    }
+    else{
+        validanumtel(document.contacto.Telefono.value);
+    }
+    
+    if(document.contacto.asunto.value=="")
+     {
+     alert("Escribe el asunto del para este mensaje");
+     document.contacto.asunto.focus();
+     return;
+     }
+     else{
+     asun=true;
+       }
+    
+if(document.contacto.mensaje.value=="")
+{
+alert("Por favor escribe un mensaje, comentario o duda");
+document.contacto.mensaje.focus();
+return;
+}
+else{
+    mensaj=true;
+}
+
+if(nom==true && mail==true && telf==true && asun==true && mensaj==true){
+document.contacto.submit();
+}
+}
+</script>
+<script>
+var btnenvio=$("#Enviar");
+	btnenvio.tap(function(){
+    var nombre=$("#nombre").val();
+    var mail=$("#email").val();
+    var asunt=$("#asunto").val();
+    if (nombre!="" && mail!="" && asunt!=""){
+    ennviar(nombre, mail, asunt);
+    }
+    else{
+    alert("no funciona")
+    }
+    });
+	
+	function (){
+		$.ajax({
+		type:"POST",
+		url:"http://germainba.260mb.net/enviar/enviar.php",
+		data:"Enviar="+nombre,
+		success: onSuccess
+	}).done(function(msg){
+		if(msg==1){
+		}else{
+		}
+	});
+	function onSuccess (data){
+		alert(data);
+	}
+	}
+	</script>    
+   
+
+
+
+</head>
+
+<body>
+<div data-role="page" id="PaginaTres">
+<div data-role="header" data-theme="b">
+<h1>Buzon de quejas</h1>
+</div>
+<div id="templatemo_main" align="center"> 
+    	<div class="col_fw">
+        	<div class="col_w460 float_l">
+<h2><p align="center">Quejate!!!</p></h2>  
+   
+   
+           
+           
+           <table width="500" border="0">
+   <tr>
+      <td>                  
+                  <form id="contacto" name="contacto" method="post" action="enviar.php" style="padding-left:20px;">
+                      <h3>Tu quejate por lo que sea...</h3><br><br>
+                      <label>Nombre:    </label>
+                      <input name="nombre" type="text" id="nombre" value="" size="60"/><br><br>
+                      <label>Correo Electr&oacute;nico: </label>
+                      <input name="email" type="text" id="email" size="50" />
+                      <br><br>
+                      <label>Teléfono: </label>
+                      <input name="Telefono" type="text" id="Telefono" size="59" />
+                      <br><br>
+                      <label>Asunto:    </label>
+                      <input name="asunto" type="text" id="asunto" size="61" /><br><br>
+                      <label>Mensaje:</label><br>
+                      <textarea name="mensaje" cols="53" rows="8" id="mensaje"></textarea>
+                      <br>
+                      <input type="submit" name="Enviar" id="Enviar" value="Enviar" onclick="validar()"/>
+                  </form>
+                </td>
+      </tr>
+</table> 
+                <a href="#" class="more float_r"></a>
+            </div>
+            
+</div></div></div>
+</body>
+</html>
